@@ -48,13 +48,12 @@ class CSVParser {
         }
     }
 
-
     // add all strings in the line to a los
     // check corner cases
     private List<String> parseLine(String line) {
         List<String> res = new ArrayList<>();
         // "([^"]*"|[^,]*)(,|$)
-        Pattern regex = Pattern.compile("\\\"(.*?)\\\"|,([^\\\"]+?),");
+        Pattern regex = Pattern.compile("\"(.*?)\"|,([^\"]+?),");
         // should match quoted  OR non-quoted str
         Matcher matcher = regex.matcher(line);
 

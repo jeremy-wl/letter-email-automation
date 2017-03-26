@@ -56,11 +56,11 @@ class TemplatePopulator {
         final String OPT_OUTDIR     = "--output-dir";
         final String OPT_CSV        = "--csv-file";
 
-        final String ERR_NO_EMAIL_TEMP = "Error: --email provided but no --email-template was given.";
-        final String ERR_NO_LETTER_TEMP = "Error: --letter provided but no --letter-template was given.";
-        final String ERR_NO_REQUIRED_OPT = "Error: The command line options --output-dir, csv-file "
-                                         + " and either --email or --letter are required.";
-        final String ERR_TOO_MANY_OPTS = "Error: Too many options given, "
+        final String ERR_NO_EMAIL_TEMP = "\n\nError: --email provided but no --email-template was given.";
+        final String ERR_NO_LETTER_TEMP = "\n\nError: --letter provided but no --letter-template was given.";
+        final String ERR_NO_REQUIRED_OPT = "\n\nError: The command line options --output-dir, csv-file "
+                                         + "and either --email or --letter are required.";
+        final String ERR_TOO_MANY_OPTS = "\n\nError: Too many options given, "
                                        + "you should provide either emails options or letter options.";
 
         final String ERR_BODY = "\n\nUsage: \n" +
@@ -90,46 +90,51 @@ class TemplatePopulator {
             switch (args[i]) {
                 case (OPT_EMAIL):
                     params.put(OPT_EMAIL, null);
+                    break;
                 case (OPT_LETTER):
                     params.put(OPT_LETTER, null);
+                    break;
                 case (OPT_EMAIL_TEMP):
-                    params.put(OPT_EMAIL_TEMP, args[i+1]);
+                    params.put(OPT_EMAIL_TEMP, args[i + 1]);
+                    break;
                 case (OPT_LETTER_TEMP):
-                    params.put(OPT_LETTER_TEMP, args[i+1]);
+                    params.put(OPT_LETTER_TEMP, args[i + 1]);
+                    break;
                 case (OPT_OUTDIR):
-                    params.put(OPT_OUTDIR, args[i+1]);
+                    params.put(OPT_OUTDIR, args[i + 1]);
+                    break;
                 case (OPT_CSV):
-                    params.put(OPT_CSV, args[i+1]);
+                    params.put(OPT_CSV, args[i + 1]);
+                    break;
                 default:
                     break;
             }
-
-            if (!params.containsKey(OPT_OUTDIR) || !params.containsKey(OPT_CSV)
-            || (!params.containsKey(OPT_EMAIL) && !params.containsKey(OPT_LETTER))) {
-                System.out.println(ERR_NO_REQUIRED_OPT + ERR_BODY);
-                System.exit(0);
-            }
-            if (params.containsKey(OPT_EMAIL) && !params.containsKey(OPT_EMAIL_TEMP)) {
-                System.out.println(ERR_NO_EMAIL_TEMP + ERR_BODY);
-                System.exit(0);
-            }
-            if (params.containsKey(OPT_LETTER) && !params.containsKey(OPT_LETTER_TEMP)) {
-                System.out.println(ERR_NO_LETTER_TEMP + ERR_BODY);
-                System.exit(0);
-            }
-            if (params.size() > 7) {
-                System.out.println(ERR_TOO_MANY_OPTS + ERR_BODY);
-                System.exit(0);
-            }
-
-            String csvFile  = params.get(OPT_CSV);
-            String outDir   = params.get(OPT_OUTDIR);
-            String template = params.containsKey(OPT_EMAIL) ? params.get(OPT_EMAIL_TEMP)
-                                                            : params.get(OPT_LETTER_TEMP);
-            TemplatePopulator tp = new TemplatePopulator();
-            CSVParser p = new CSVParser(csvFile);
-            String templateContent = tp.getTemplateContent(template);
-            tp.populateAll(templateContent, p.getEntries(), outDir);
         }
+        if (!params.containsKey(OPT_OUTDIR) || !params.containsKey(OPT_CSV)
+                || (!params.containsKey(OPT_EMAIL) && !params.containsKey(OPT_LETTER))) {
+            System.out.println(ERR_NO_REQUIRED_OPT + ERR_BODY);
+            System.exit(0);
+        }
+        if (params.containsKey(OPT_EMAIL) && !params.containsKey(OPT_EMAIL_TEMP)) {
+            System.out.println(ERR_NO_EMAIL_TEMP + ERR_BODY);
+            System.exit(0);
+        }
+        if (params.containsKey(OPT_LETTER) && !params.containsKey(OPT_LETTER_TEMP)) {
+            System.out.println(ERR_NO_LETTER_TEMP + ERR_BODY);
+            System.exit(0);
+        }
+        if (params.size() > 4) {
+            System.out.println(ERR_TOO_MANY_OPTS + ERR_BODY);
+            System.exit(0);
+        }
+
+        String csvFile  = params.get(OPT_CSV);
+        String outDir   = params.get(OPT_OUTDIR);
+        String template = params.containsKey(OPT_EMAIL) ? params.get(OPT_EMAIL_TEMP)
+                : params.get(OPT_LETTER_TEMP);
+        TemplatePopulator tp = new TemplatePopulator();
+        CSVParser p = new CSVParser(csvFile);
+        String templateContent = tp.getTemplateContent(template);
+        tp.populateAll(templateContent, p.getEntries(), outDir);
     }
 }

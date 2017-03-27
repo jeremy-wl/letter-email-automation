@@ -18,33 +18,44 @@ import java.util.regex.Pattern;
 class CSVParser {
     private List<Map<String, String>> entries;
 
-    public CSVParser(String fileName) throws IOException {
+    CSVParser(String fileName) throws IOException {
         entries = new ArrayList<>();
-        parse(fileName);
+        try {
+            parse(fileName);
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("*** OUPS! A file was not found : " + fnfe.getMessage());
+            fnfe.printStackTrace();
+        } catch (IOException ioe) {
+            System.out.println("Something went wrong! : " + ioe.getMessage());
+            ioe.printStackTrace();
+        }
     }
 
     // given a csv file name, returns a list of hashmap with the field being key
-    private void parse(String fileName) throws FileNotFoundException, IOException {
+    private void parse(String fileName) throws IOException {
         List<String> fields = null;
         List<List<String>> entries = null;
         try (BufferedReader inputFile = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = inputFile.readLine()) != null) {
                 List<String> strings = parseLine(line);
-                if (fields == null)   fields = new ArrayList<>(strings);
+                if (fields == null) fields = new ArrayList<>(strings);
                 else {
-                    if (entries == null)   entries = new ArrayList<>();
+                    if (entries == null) entries = new ArrayList<>();
                     entries.add(strings);
                 }
             }
-        }
-        for (List<String> entry : entries) {
-            if (entry.size() != fields.size())  continue; // TODO: throw exception here
-            Map<String, String> map = new HashMap<>();
-            for (int i = 0; i < fields.size(); i++) {
-                map.put("[[" + fields.get(i) + "]]", entry.get(i));
+            for (List<String> entry : entries) {
+                if (entry.size() == 0) continue;
+                if (entry.size() != fields.size()) {
+                    throw new InvalidCSVException("Invalid CSV format");
+                }
+                Map<String, String> map = new HashMap<>();
+                for (int i = 0; i < fields.size(); i++) {
+                    map.put("[[" + fields.get(i) + "]]", entry.get(i));
+                }
+                this.entries.add(map);
             }
-            this.entries.add(map);
         }
     }
 
@@ -52,9 +63,9 @@ class CSVParser {
     // check corner cases
     private List<String> parseLine(String line) {
         List<String> res = new ArrayList<>();
-        // "([^"]*"|[^,]*)(,|$)
+
         Pattern regex = Pattern.compile("\"(.*?)\"|,([^\"]+?),");
-        // should match quoted  OR non-quoted str
+
         Matcher matcher = regex.matcher(line);
 
         while (matcher.find()) {
@@ -68,27 +79,28 @@ class CSVParser {
         return entries;
     }
 
-    public static void main(String[] args) throws Exception {
-        CSVParser p = new CSVParser("/Users/Jeremy/Downloads/theater-company-members.csv");
-        System.out.println(p);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CSVParser csvParser = (CSVParser) o;
+
+        List<Map<String, String>> thisEntry = this.getEntries();
+        List<Map<String, String>> thatEntry = csvParser.getEntries();
+
+        if (thisEntry.size() != thatEntry.size())   return false;
+
+        int i = 0;
+        while (i < thisEntry.size()) {
+            if (!thisEntry.get(i).equals(thatEntry.get(i))) return false;
+            i++;
+        }
+        return true;
     }
 
-//    private boolean
-
-
-//    public List<String> getFields() {
-//        return fields;
-//    }
-//
-//    public List<List<String>> getEntries() {
-//        return entries;
-//    }
-
-//    public String getField(int index) {
-//        return getFields().get(index);
-//    }
-//
-//    public List<String> getEntry(int index) {
-//        return getEntries().get(index);
-//    }
+    @Override
+    public int hashCode() {
+        return getEntries() != null ? getEntries().hashCode() : 0;
+    }
 }

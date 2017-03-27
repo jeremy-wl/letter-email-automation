@@ -9,7 +9,44 @@ import java.util.Map;
  * Created by Jeremy on 3/24/17.
  */
 class TemplatePopulator {
-    public String getTemplateContent(String fileName) throws FileNotFoundException, IOException {
+    private static final String OPT_EMAIL      = "--email";
+    private static final String OPT_LETTER     = "--letter";
+    private static final String OPT_EMAIL_TEMP  = "--email-template";
+    private static final String OPT_LETTER_TEMP = "--letter-template";
+    private static final String OPT_OUTDIR     = "--output-dir";
+    private static final String OPT_CSV        = "--csv-file";
+
+    private static final String ERR_NO_EMAIL_TEMP = "\n\nError: --email provided but no --email-template was given.";
+    private static final String ERR_NO_LETTER_TEMP = "\n\nError: --letter provided but no --letter-template was given.";
+    private static final String ERR_NO_REQUIRED_OPT = "\n\nError: The command line options --output-dir, csv-file "
+            + "and either --email or --letter are required.";
+    private static final String ERR_TOO_MANY_OPTS = "\n\nError: Too many options given, "
+            + "you should provide either emails options or letter options.";
+
+    private static final String ERR_BODY = "\n\nUsage: \n" +
+            "\n" +
+            "        --email                  only generate email messages\n" +
+            "        --email-template <file>  accepts a filename that holds the email " +
+            "template. Required if --email is used\n" +
+            "\n" +
+            "        --letter                 only generate letters\n" +
+            "        --letter-template <file> accepts a filename that holds the email " +
+            "template. Required if --letter is used\n" +
+            "\n" +
+            "        --output-dir <path>      accepts the name of a folder, all output is " +
+            "placed in this folder\n" +
+            "\n" +
+            "        --csv-file <path>        accepts the name of the csv file to process\n" +
+            "\n" +
+            "Examples: \n" +
+            "\n" +
+            "       --email --email-template email-template.txt --output-dir emails " +
+            "--csv-file customer.csv\n" +
+            "       --letter --letter-template letter-template.txt --output-dir letters " +
+            "--csv-file customer.csv\n" +
+            "\n";
+
+    public static String getFileContent(String fileName) {
         StringBuilder res = new StringBuilder();
         try (BufferedReader inputFile = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -17,11 +54,17 @@ class TemplatePopulator {
                 if (res.length() != 0)  res.append("\n");
                 res.append(line);
             }
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("*** OUPS! A file was not found : " + fnfe.getMessage());
+            fnfe.printStackTrace();
+        } catch (IOException ioe) {
+            System.out.println("Something went wrong! : " + ioe.getMessage());
+            ioe.printStackTrace();
         }
         return res.toString();
     }
 
-    public String populateTemplate(String templateContent, Map<String, String> map) {
+    private static String populateTemplate(String templateContent, Map<String, String> map) {
         StringBuilder res = new StringBuilder(templateContent);
         for (String field : map.keySet()) {
             int index = res.indexOf(field);
@@ -33,59 +76,29 @@ class TemplatePopulator {
         return res.toString();
     }
 
-    public void writeToFile(String content, String dest) throws IOException {
+    private static void writeToFile(String content, String dest) {
         try (BufferedWriter outputFile = new BufferedWriter(new FileWriter(dest))) {
             outputFile.write(content);
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("*** OUPS! A file was not found : " + fnfe.getMessage());
+            fnfe.printStackTrace();
+        } catch (IOException ioe) {
+            System.out.println("Something went wrong! : " + ioe.getMessage());
+            ioe.printStackTrace();
         }
     }
 
-    public void populateAll(String templateContent, List<Map<String, String>> entries, String outDir) throws IOException {
+    private static void populateAll(String templateContent, List<Map<String, String>> entries, String outDir) {
+        int num = 1;
         for (Map<String, String> entry : entries) {
             String populated = populateTemplate(templateContent, entry);
-            writeToFile(populated, outDir+"/"+ entry.get("[[first_name]]"));
-            // TODO: proper output file name
+            writeToFile(populated, outDir+"/" + "output" + num++);
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        boolean isArgsValid = true;
         Map<String, String> params = new HashMap<>();
-        final String OPT_EMAIL      = "--email";
-        final String OPT_LETTER     = "--letter";
-        final String OPT_EMAIL_TEMP  = "--email-template";
-        final String OPT_LETTER_TEMP = "--letter-template";
-        final String OPT_OUTDIR     = "--output-dir";
-        final String OPT_CSV        = "--csv-file";
-
-        final String ERR_NO_EMAIL_TEMP = "\n\nError: --email provided but no --email-template was given.";
-        final String ERR_NO_LETTER_TEMP = "\n\nError: --letter provided but no --letter-template was given.";
-        final String ERR_NO_REQUIRED_OPT = "\n\nError: The command line options --output-dir, csv-file "
-                                         + "and either --email or --letter are required.";
-        final String ERR_TOO_MANY_OPTS = "\n\nError: Too many options given, "
-                                       + "you should provide either emails options or letter options.";
-
-        final String ERR_BODY = "\n\nUsage: \n" +
-                "\n" +
-                "        --email                  only generate email messages\n" +
-                "        --email-template <file>  accepts a filename that holds the email " +
-                "template. Required if --email is used\n" +
-                "\n" +
-                "        --letter                 only generate letters\n" +
-                "        --letter-template <file> accepts a filename that holds the email " +
-                "template. Required if --letter is used\n" +
-                "\n" +
-                "        --output-dir <path>      accepts the name of a folder, all output is " +
-                "placed in this folder\n" +
-                "\n" +
-                "        --csv-file <path>        accepts the name of the csv file to process\n" +
-                "\n" +
-                "Examples: \n" +
-                "\n" +
-                "       --email --email-template email-template.txt --output-dir emails " +
-                "--csv-file customer.csv\n" +
-                "       --letter --letter-template letter-template.txt --output-dir letters " +
-                "--csv-file customer.csv\n" +
-                "\n";
-
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
                 case (OPT_EMAIL):
@@ -113,28 +126,30 @@ class TemplatePopulator {
         if (!params.containsKey(OPT_OUTDIR) || !params.containsKey(OPT_CSV)
                 || (!params.containsKey(OPT_EMAIL) && !params.containsKey(OPT_LETTER))) {
             System.out.println(ERR_NO_REQUIRED_OPT + ERR_BODY);
-            System.exit(0);
+            isArgsValid = false;
         }
-        if (params.containsKey(OPT_EMAIL) && !params.containsKey(OPT_EMAIL_TEMP)) {
+        else if (params.containsKey(OPT_EMAIL) && !params.containsKey(OPT_EMAIL_TEMP)) {
             System.out.println(ERR_NO_EMAIL_TEMP + ERR_BODY);
-            System.exit(0);
+            isArgsValid = false;
         }
-        if (params.containsKey(OPT_LETTER) && !params.containsKey(OPT_LETTER_TEMP)) {
+        else if (params.containsKey(OPT_LETTER) && !params.containsKey(OPT_LETTER_TEMP)) {
             System.out.println(ERR_NO_LETTER_TEMP + ERR_BODY);
-            System.exit(0);
+            isArgsValid = false;
         }
-        if (params.size() > 4) {
+        else if (params.size() > 4) {
             System.out.println(ERR_TOO_MANY_OPTS + ERR_BODY);
-            System.exit(0);
+            isArgsValid = false;
         }
 
-        String csvFile  = params.get(OPT_CSV);
-        String outDir   = params.get(OPT_OUTDIR);
-        String template = params.containsKey(OPT_EMAIL) ? params.get(OPT_EMAIL_TEMP)
-                : params.get(OPT_LETTER_TEMP);
-        TemplatePopulator tp = new TemplatePopulator();
-        CSVParser p = new CSVParser(csvFile);
-        String templateContent = tp.getTemplateContent(template);
-        tp.populateAll(templateContent, p.getEntries(), outDir);
+        if (isArgsValid) {
+            String csvFile  = params.get(OPT_CSV);
+            String outDir   = params.get(OPT_OUTDIR);
+            String template = params.containsKey(OPT_EMAIL) ? params.get(OPT_EMAIL_TEMP)
+                    : params.get(OPT_LETTER_TEMP);
+            TemplatePopulator tp = new TemplatePopulator();
+            CSVParser p = new CSVParser(csvFile);
+            String templateContent = tp.getFileContent(template);
+            tp.populateAll(templateContent, p.getEntries(), outDir);
+        }
     }
 }

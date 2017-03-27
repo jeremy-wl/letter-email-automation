@@ -16,18 +16,18 @@ import java.util.Map;
 public class CSVParserTest extends TestUtils {
   private static final String IO_DIR = System.getProperty("user.dir") +
           "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1/io";
-  private CSVParser parser;
-  private CSVParser parser_dup;
-  private CSVParser parser_dup2;
-  private CSVParser parser_diff;
+  private CsvParser parser;
+  private CsvParser parser_dup;
+  private CsvParser parser_dup2;
+  private CsvParser parser_diff;
   private List<Map<String, String>> entries;
 
   @Before
   public void setUp() throws Exception {
-    parser = new CSVParser(IO_DIR + "/in/theater-company-members.csv");
-    parser_dup = new CSVParser(IO_DIR + "/in/theater-company-members.csv");
-    parser_dup2 = new CSVParser(IO_DIR + "/in/theater-company-members.csv");
-    parser_diff = new CSVParser(IO_DIR + "/in/diff_csv.csv");
+    parser = new CsvParser(IO_DIR + "/in/theater-company-members.csv");
+    parser_dup = new CsvParser(IO_DIR + "/in/theater-company-members.csv");
+    parser_dup2 = new CsvParser(IO_DIR + "/in/theater-company-members.csv");
+    parser_diff = new CsvParser(IO_DIR + "/in/diff_csv.csv");
 
     entries = new ArrayList<Map<String, String>>() {{
       add(new HashMap<String, String>() {{
@@ -66,10 +66,10 @@ public class CSVParserTest extends TestUtils {
     Assert.assertEquals(entries, parser.getEntries());
   }
 
-  @Test(expected = InvalidCSVException.class)
+  @Test(expected = InvalidCsvException.class)
   public void testParseInvalidCSV() throws Exception {
-    parser = new CSVParser(IO_DIR + "/in/invalid.csv");
-    parser = new CSVParser(IO_DIR + "/in/invalid2.csv");
+    parser = new CsvParser(IO_DIR + "/in/invalid.csv");
+    parser = new CsvParser(IO_DIR + "/in/invalid2.csv");
   }
 
   @Test

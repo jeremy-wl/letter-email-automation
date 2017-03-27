@@ -1,6 +1,11 @@
 package edu.neu.ccs.cs5004.assignment9.problem1;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,38 +21,38 @@ class TemplatePopulator {
   private static final String OPT_OUTDIR = "--output-dir";
   private static final String OPT_CSV = "--csv-file";
 
-  private static final String ERR_NO_EMAIL_TEMP = "\n\nError: --email provided but no " +
-          "--email-template was given.";
-  private static final String ERR_NO_LETTER_TEMP = "\n\nError: --letter provided but no " +
-          "--letter-template was given.";
-  private static final String ERR_NO_REQUIRED_OPT = "\n\nError: The command line options " +
-          "--output-dir, csv-file "
-          + "and either --email or --letter are required.";
+  private static final String ERR_NO_EMAIL_TEMP = "\n\nError: --email provided but no "
+           + "--email-template was given.";
+  private static final String ERR_NO_LETTER_TEMP = "\n\nError: --letter provided but no "
+           + "--letter-template was given.";
+  private static final String ERR_NO_REQUIRED_OPT = "\n\nError: The command line options "
+           + "--output-dir, csv-file "
+           + "and either --email or --letter are required.";
   private static final String ERR_TOO_MANY_OPTS = "\n\nError: Too many options given, "
-          + "you should provide either emails options or letter options.";
+           + "you should provide either emails options or letter options.";
 
-  private static final String ERR_BODY = "\n\nUsage: \n" +
-          "\n" +
-          "        --email                  only generate email messages\n" +
-          "        --email-template <file>  accepts a filename that holds the email " +
-          "template. Required if --email is used\n" +
-          "\n" +
-          "        --letter                 only generate letters\n" +
-          "        --letter-template <file> accepts a filename that holds the email " +
-          "template. Required if --letter is used\n" +
-          "\n" +
-          "        --output-dir <path>      accepts the name of a folder, all output is " +
-          "placed in this folder\n" +
-          "\n" +
-          "        --csv-file <path>        accepts the name of the csv file to process\n" +
-          "\n" +
-          "Examples: \n" +
-          "\n" +
-          "       --email --email-template email-template.txt --output-dir emails " +
-          "--csv-file customer.csv\n" +
-          "       --letter --letter-template letter-template.txt --output-dir letters " +
-          "--csv-file customer.csv\n" +
-          "\n";
+  private static final String ERR_BODY = "\n\nUsage: \n"
+           + "\n"
+           + "        --email                  only generate email messages\n"
+           + "        --email-template <file>  accepts a filename that holds the email "
+           + "template. Required if --email is used\n"
+           + "\n"
+           + "        --letter                 only generate letters\n"
+           + "        --letter-template <file> accepts a filename that holds the email "
+           + "template. Required if --letter is used\n"
+           + "\n"
+           + "        --output-dir <path>      accepts the name of a folder, all output is "
+           + "placed in this folder\n"
+           + "\n"
+           + "        --csv-file <path>        accepts the name of the csv file to process\n"
+           + "\n"
+           + "Examples: \n"
+           + "\n"
+           + "       --email --email-template email-template.txt --output-dir emails "
+           + "--csv-file customer.csv\n"
+           + "       --letter --letter-template letter-template.txt --output-dir letters "
+           + "--csv-file customer.csv\n"
+           + "\n";
 
   /**
    * Gets the file content from the given file.
@@ -61,7 +66,9 @@ class TemplatePopulator {
     try (BufferedReader inputFile = new BufferedReader(new FileReader(fileName))) {
       String line;
       while ((line = inputFile.readLine()) != null) {
-        if (res.length() != 0) res.append("\n");
+        if (res.length() != 0) {
+          res.append("\n");
+        }
         res.append(line);
       }
     } catch (FileNotFoundException fnfe) {
@@ -133,19 +140,19 @@ class TemplatePopulator {
    * Accepts certain arguments at the command line and populate different template to files
    * given different options
    *
-   * --email                  only generate email messages
-   * --email-template <file>  accepts a filename that holds the email template
+   * {@code --email                 } only generate email messages
+   * {@code --email-template <file> } accepts a filename that holds the email template
    *
-   * --letter                 only generate letters
-   * --letter-template <file> accepts a filename that holds the email template
+   * {@code --letter                } only generate letters
+   * {@code --letter-template <file>} accepts a filename that holds the email template
    *
    *
-   * --output-dir <path>      accepts the name of a folder, all output is placed in this folder
-   * --csv-file <path>        accepts the name of the csv file to process
+   * {@code --output-dir <path>}  accepts the name of a folder, all output is placed in this folder
+   * {@code --csv-file <path>}    accepts the name of the csv file to process
    *
-   * When an illegal combination of inputs is provided by the user
-   * the program will exit with a helpful error message and a short explanation of
-   * how to use the program along with examples.
+   * <p>When an illegal combination of inputs is provided by the user
+   *    the program will exit with a helpful error message and a short explanation of
+   *    how to use the program along with examples.
    *
    * @param args the arguments passed at the command line
    */
@@ -197,9 +204,9 @@ class TemplatePopulator {
       String template = params.containsKey(OPT_EMAIL) ? params.get(OPT_EMAIL_TEMP)
               : params.get(OPT_LETTER_TEMP);
       TemplatePopulator tp = new TemplatePopulator();
-      CSVParser p = new CSVParser(csvFile);
+      CsvParser parser = new CsvParser(csvFile);
       String templateContent = tp.getFileContent(template);
-      tp.populateAll(templateContent, p.getEntries(), outDir);
+      tp.populateAll(templateContent, parser.getEntries(), outDir);
     }
   }
 }

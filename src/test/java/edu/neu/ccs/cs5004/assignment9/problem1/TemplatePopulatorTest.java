@@ -16,27 +16,27 @@ import java.util.Map;
 public class TemplatePopulatorTest {
   private static final String IO_DIR = System.getProperty("user.dir") +
           "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1/io";
-  private CSVParser parser;
+  private CsvParser parser;
   private List<Map<String, String>> entries;
   private String templateContent;
   private TemplatePopulator tp;
 
   @Before
   public void setUp() throws Exception {
-    parser = new CSVParser(IO_DIR + "/in/theater-company-members.csv");
+    parser = new CsvParser(IO_DIR + "/in/theater-company-members.csv");
     tp = new TemplatePopulator();
-    templateContent = "To:[[email]]\n" +
-            "Subject:Information on this years members only show!\n" +
-            "\n" +
-            "Dear [[first_name]] [[last_name]], \n" +
-            "\n" +
-            "   This year's members only theater show will showcase \"A Streetcar\n" +
-            "   Named Desire\" directed by John Jarmush and Susan Mae at our New\n" +
-            "   York location between March 1st and April 10th.  Your complementary\n" +
-            "   tickets for the show are on their way through mail and should\n" +
-            "   reach you within the next couple of days.\n" +
-            "\n" +
-            "   Sincerely, \n";
+    templateContent = "To:[[email]]\n"
+            + "Subject:Information on this years members only show!\n"
+            + "\n"
+            + "Dear [[first_name]] [[last_name]], \n"
+            + "\n"
+            + "   This year's members only theater show will showcase \"A Streetcar\n"
+            + "   Named Desire\" directed by John Jarmush and Susan Mae at our New\n"
+            + "   York location between March 1st and April 10th.  Your complementary\n"
+            + "   tickets for the show are on their way through mail and should\n"
+            + "   reach you within the next couple of days.\n"
+            + "\n"
+            + "   Sincerely, \n";
     entries = new ArrayList<Map<String, String>>() {{
       add(new HashMap<String, String>() {{
         put("[[first_name]]", "James");

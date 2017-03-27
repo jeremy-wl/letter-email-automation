@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 /**
  * Represents a CSV parser.
  */
-class CSVParser {
+class CsvParser {
   private List<Map<String, String>> entries;
 
   /**
@@ -27,7 +27,7 @@ class CSVParser {
    *
    * @param fileName the name of a CSV file
    */
-  CSVParser(String fileName) {
+  CsvParser(String fileName) {
     entries = new ArrayList<>();
     parse(fileName);
   }
@@ -45,20 +45,25 @@ class CSVParser {
       String line;
       while ((line = inputFile.readLine()) != null) {
         List<String> strings = parseLine(line);
-        if (fields == null) fields = new ArrayList<>(strings);
-        else {
-          if (entries == null) entries = new ArrayList<>();
+        if (fields == null) {
+          fields = new ArrayList<>(strings);
+        } else {
+          if (entries == null) {
+            entries = new ArrayList<>();
+          }
           entries.add(strings);
         }
       }
       for (List<String> entry : entries) {
-        if (entry.size() == 0) continue;
+        if (entry.size() == 0) {
+          continue;
+        }
         if (entry.size() != fields.size()) {
-          throw new InvalidCSVException("Invalid CSV format");
+          throw new InvalidCsvException("Invalid CSV format");
         }
         Map<String, String> map = new HashMap<>();
-        for (int i = 0; i < fields.size(); i++) {
-          map.put("[[" + fields.get(i) + "]]", entry.get(i));
+        for (int index = 0; index < fields.size(); index++) {
+          map.put("[[" + fields.get(index) + "]]", entry.get(index));
         }
         this.entries.add(map);
       }
@@ -102,21 +107,29 @@ class CSVParser {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
 
-    CSVParser csvParser = (CSVParser) o;
+    CsvParser csvParser = (CsvParser) obj;
 
     List<Map<String, String>> thisEntry = this.getEntries();
     List<Map<String, String>> thatEntry = csvParser.getEntries();
 
-    if (thisEntry.size() != thatEntry.size()) return false;
+    if (thisEntry.size() != thatEntry.size()) {
+      return false;
+    }
 
-    int i = 0;
-    while (i < thisEntry.size()) {
-      if (!thisEntry.get(i).equals(thatEntry.get(i))) return false;
-      i++;
+    int index = 0;
+    while (index < thisEntry.size()) {
+      if (!thisEntry.get(index).equals(thatEntry.get(index))) {
+        return false;
+      }
+      index++;
     }
     return true;
   }

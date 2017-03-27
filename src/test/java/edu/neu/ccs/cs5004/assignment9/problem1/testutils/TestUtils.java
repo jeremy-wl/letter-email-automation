@@ -86,16 +86,17 @@ public abstract class TestUtils {
    * Checks the properties specified in Object.equals().
    *
    * <ol>
-   *   <li>Reflexive</li>
-   *   <li>Symmetric</li>
-   *   <li>Transitive</li>
-   *   <li>passing {@code null} to equals</li>
+   * <li>Reflexive</li>
+   * <li>Symmetric</li>
+   * <li>Transitive</li>
+   * <li>passing {@code null} to equals</li>
    * </ol>
    *
    * @param obj1 object for the class we are testing equals for
    * @param obj2 object for the class we are testing equals for
    * @param obj3 object for the class we are testing equals for
    * @param diff of the same class but unequal to obj1 obj2 obj3
+   *
    * @return true if the properties required for equals methods in Java are met, false otherwise.
    */
   public Boolean isEqualsContractValid(Object obj1, Object obj2, Object obj3, Object diff) {
@@ -105,7 +106,7 @@ public abstract class TestUtils {
     Assert.assertFalse(isEqualsSymmetric(obj1, diff));
 
     Assert.assertTrue(
-        isEqualsTransitive(obj1, obj2, obj3));
+            isEqualsTransitive(obj1, obj2, obj3));
 
     Assert.assertTrue(doesEqualsAgreeWithHashCode(obj1, diff));
     Assert.assertTrue(doesEqualsAgreeWithHashCode(obj1, obj2));

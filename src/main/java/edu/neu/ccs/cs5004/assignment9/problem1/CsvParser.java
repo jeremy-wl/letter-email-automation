@@ -2,9 +2,10 @@ package edu.neu.ccs.cs5004.assignment9.problem1;
 
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +42,8 @@ class CsvParser {
   private void parse(String fileName) {
     List<String> fields = null;
     List<List<String>> entries = null;
-    try (BufferedReader inputFile = new BufferedReader(new FileReader(fileName))) {
+    try (BufferedReader inputFile = new BufferedReader(new InputStreamReader(
+                                        new FileInputStream(fileName), "UTF-8"))) {
       String line;
       while ((line = inputFile.readLine()) != null) {
         List<String> strings = parseLine(line);

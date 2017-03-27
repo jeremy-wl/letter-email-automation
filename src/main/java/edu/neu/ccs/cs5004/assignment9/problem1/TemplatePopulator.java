@@ -2,10 +2,12 @@ package edu.neu.ccs.cs5004.assignment9.problem1;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +65,8 @@ class TemplatePopulator {
    */
   private static String getFileContent(String fileName) {
     StringBuilder res = new StringBuilder();
-    try (BufferedReader inputFile = new BufferedReader(new FileReader(fileName))) {
+    try (BufferedReader inputFile = new BufferedReader(new InputStreamReader(
+                                      new FileInputStream(fileName), "UTF-8"))) {
       String line;
       while ((line = inputFile.readLine()) != null) {
         if (res.length() != 0) {
@@ -108,7 +111,8 @@ class TemplatePopulator {
    * @param dest    the destination file
    */
   private static void writeToFile(String content, String dest) {
-    try (BufferedWriter outputFile = new BufferedWriter(new FileWriter(dest))) {
+    try (BufferedWriter outputFile = new BufferedWriter(new OutputStreamWriter(
+                                          new FileOutputStream(dest), "UTF-8"))) {
       outputFile.write(content);
     } catch (FileNotFoundException fnfe) {
       System.out.println("*** OUPS! A file was not found : " + fnfe.getMessage());
@@ -203,10 +207,10 @@ class TemplatePopulator {
       String outDir = params.get(OPT_OUTDIR);
       String template = params.containsKey(OPT_EMAIL) ? params.get(OPT_EMAIL_TEMP)
               : params.get(OPT_LETTER_TEMP);
-      TemplatePopulator tp = new TemplatePopulator();
+      TemplatePopulator populator = new TemplatePopulator();
       CsvParser parser = new CsvParser(csvFile);
-      String templateContent = tp.getFileContent(template);
-      tp.populateAll(templateContent, parser.getEntries(), outDir);
+      String templateContent = populator.getFileContent(template);
+      populator.populateAll(templateContent, parser.getEntries(), outDir);
     }
   }
 }

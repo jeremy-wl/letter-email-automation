@@ -19,13 +19,15 @@ public class CSVParserTest extends TestUtils {
     private CSVParser parser_dup2;
     private CSVParser parser_diff;
     private List<Map<String, String>> entries;
+    private static final String IO_DIR = System.getProperty("user.dir") +
+            "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1/io";
 
     @Before
     public void setUp() throws Exception {
-        parser = new CSVParser("io/in/theater-company-members.csv");
-        parser_dup = new CSVParser("io/in/theater-company-members.csv");
-        parser_dup2 = new CSVParser("io/in/theater-company-members.csv");
-        parser_diff = new CSVParser("io/in/diff_csv.csv");
+        parser = new CSVParser(IO_DIR + "/in/theater-company-members.csv");
+        parser_dup = new CSVParser(IO_DIR + "/in/theater-company-members.csv");
+        parser_dup2 = new CSVParser(IO_DIR + "/in/theater-company-members.csv");
+        parser_diff = new CSVParser(IO_DIR + "/in/diff_csv.csv");
 
         entries = new ArrayList<Map<String, String>>() {{
             add(new HashMap<String, String>() {{
@@ -66,8 +68,8 @@ public class CSVParserTest extends TestUtils {
 
     @Test(expected = InvalidCSVException.class)
     public void testParseInvalidCSV() throws Exception {
-        parser = new CSVParser("io/in/invalid.csv");
-        parser = new CSVParser("io/in/invalid2.csv");
+        parser = new CSVParser(IO_DIR + "/in/invalid.csv");
+        parser = new CSVParser(IO_DIR + "/in/invalid2.csv");
     }
 
     @Test

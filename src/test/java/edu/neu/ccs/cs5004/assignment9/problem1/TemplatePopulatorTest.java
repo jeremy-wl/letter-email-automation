@@ -18,10 +18,12 @@ public class TemplatePopulatorTest {
     private List<Map<String, String>> entries;
     private String templateContent;
     private TemplatePopulator tp;
+    private static final String IO_DIR = System.getProperty("user.dir") +
+            "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1/io";
 
     @Before
     public void setUp() throws Exception {
-        parser = new CSVParser("io/in/theater-company-members.csv");
+        parser = new CSVParser(IO_DIR + "/in/theater-company-members.csv");
         tp = new TemplatePopulator();
         templateContent = "To:[[email]]\n" +
                 "Subject:Information on this years members only show!\n" +
@@ -71,21 +73,21 @@ public class TemplatePopulatorTest {
     public void testGetTemplateContent() throws Exception {
         Method method = tp.getClass().getDeclaredMethod("getFileContent", String.class);
         method.setAccessible(true);
-        Assert.assertEquals(templateContent, method.invoke(tp, "io/in/template_email.txt"));
+        Assert.assertEquals(templateContent, method.invoke(tp, IO_DIR + "/in/template_email.txt"));
     }
 
     @Test
     public void testPopulateAll() throws Exception {
         Method method = tp.getClass().getDeclaredMethod("populateAll", String.class, List.class, String.class);
         method.setAccessible(true);
-        method.invoke(tp, templateContent, parser.getEntries(), "io/out");
+        method.invoke(tp, templateContent, parser.getEntries(), IO_DIR + "/out");
     }
 
     @Test
     public void testMainValidEmail() throws Exception {
-        String[] argsValid = {"--email", "--email-template", "io/in/template_email.txt", "--output-dir",
+        String[] argsValid = {"--email", "--email-template", IO_DIR + "/in/template_email.txt", "--output-dir",
 
-                "io/out", "--csv-file", "io/in/theater-company-members.csv"};
+                IO_DIR + "/out", "--csv-file", IO_DIR + "/in/theater-company-members.csv"};
         String outContent = "To:jbutt@gmail.com\n" +
                 "Subject:Information on this years members only show!\n" +
                 "\n" +
@@ -102,13 +104,13 @@ public class TemplatePopulatorTest {
         method.setAccessible(true);
 
         TemplatePopulator.main(argsValid);
-        Assert.assertEquals(outContent, method.invoke(tp, "io/out/output1"));
+        Assert.assertEquals(outContent, method.invoke(tp, IO_DIR + "/out/output1"));
     }
 
     @Test
     public void testMainValidLetter() throws Exception {
-        String[] argsValid = {"--letter", "--letter-template", "io/in/template_letter.txt",
-                              "--output-dir", "io/out", "--csv-file", "io/in/theater-company-members.csv"};
+        String[] argsValid = {"--letter", "--letter-template", IO_DIR + "/in/template_letter.txt",
+                              "--output-dir", IO_DIR + "/out", "--csv-file", IO_DIR + "/in/theater-company-members.csv"};
         String outContent = "Benton, John B Jr.\n" +
                 "James Butt\n" +
                 "6649 N Blue Gum St, New Orleans,\n" +
@@ -127,17 +129,17 @@ public class TemplatePopulatorTest {
         method.setAccessible(true);
 
         TemplatePopulator.main(argsValid);
-        Assert.assertEquals(outContent,  method.invoke(tp, "io/out/output1"));
+        Assert.assertEquals(outContent,  method.invoke(tp, IO_DIR + "/out/output1"));
     }
 
     @Test
     public void testMainInvalid() throws Exception {
-        String[] argsinInvalid1 = {"--letter", "io/in/template_letter.txt",
-                "--output-dir", "io/out", "--csv-file", "io/in/theater-company-members.csv"};
-        String[] argsinInvalid2 = {"--email", "io/in/template_letter.txt",
-                "--output-dir", "io/out", "--csv-file", "io/in/theater-company-members.csv"};
-        String[] argsinInvalid3 = {"--letter", "--letter-template", "io/in/template_letter.txt",
-                "--output-dir", "io/out", "aaa", "bbb", "ccc", "ddd"};
+        String[] argsinInvalid1 = {"--letter", IO_DIR + "/in/template_letter.txt",
+                "--output-dir", IO_DIR + "/out", "--csv-file", IO_DIR + "/in/theater-company-members.csv"};
+        String[] argsinInvalid2 = {"--email", IO_DIR + "/in/template_letter.txt",
+                "--output-dir", IO_DIR + "/out", "--csv-file", IO_DIR + "/in/theater-company-members.csv"};
+        String[] argsinInvalid3 = {"--letter", "--letter-template", IO_DIR + "/in/template_letter.txt",
+                "--output-dir", IO_DIR + "/out", "aaa", "bbb", "ccc", "ddd"};
         TemplatePopulator.main(argsinInvalid1);
         TemplatePopulator.main(argsinInvalid2);
         TemplatePopulator.main(argsinInvalid3);

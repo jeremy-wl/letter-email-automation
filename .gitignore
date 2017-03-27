@@ -1,7 +1,6 @@
 *.class
 *.iml
 .idea
-out
 *.*~
 *~
 .*~
@@ -10,4 +9,3 @@ assignment*.iml
 assignment*.ipr
 assignment*.iws
 target
-io

@@ -15,24 +15,32 @@ import java.util.regex.Pattern;
 /**
  * Created by Jeremy on 3/23/17.
  */
+
+/**
+ * Represents a CSV parser.
+ */
 class CSVParser {
     private List<Map<String, String>> entries;
 
-    CSVParser(String fileName) throws IOException {
+    /**
+     * Creates the CSV parser and parse the given csv into a list of entries.
+     * @param fileName the name of a CSV file
+     * @throws IOException
+     */
+    CSVParser(String fileName) {
         entries = new ArrayList<>();
-        try {
-            parse(fileName);
-        } catch (FileNotFoundException fnfe) {
-            System.out.println("*** OUPS! A file was not found : " + fnfe.getMessage());
-            fnfe.printStackTrace();
-        } catch (IOException ioe) {
-            System.out.println("Something went wrong! : " + ioe.getMessage());
-            ioe.printStackTrace();
-        }
+        parse(fileName);
     }
 
+    /**
+     * Given the name of a CSV file, parse the given csv file into a list of hash map,
+     * with the key being the name of the field, and the value the value of the field.
+     *
+     * @param fileName the name of a CSV file
+     * @throws IOException
+     */
     // given a csv file name, returns a list of hashmap with the field being key
-    private void parse(String fileName) throws IOException {
+    private void parse(String fileName) {
         List<String> fields = null;
         List<List<String>> entries = null;
         try (BufferedReader inputFile = new BufferedReader(new FileReader(fileName))) {
@@ -56,11 +64,20 @@ class CSVParser {
                 }
                 this.entries.add(map);
             }
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("*** OUPS! A file was not found : " + fnfe.getMessage());
+            fnfe.printStackTrace();
+        } catch (IOException ioe) {
+            System.out.println("Something went wrong! : " + ioe.getMessage());
+            ioe.printStackTrace();
         }
     }
 
-    // add all strings in the line to a los
-    // check corner cases
+    /**
+     * Given a string from a line read from a csv file.
+     * @param line a line read from a csv file
+     * @return a list of values parsed from the csv file
+     */
     private List<String> parseLine(String line) {
         List<String> res = new ArrayList<>();
 
@@ -75,6 +92,10 @@ class CSVParser {
         return res;
     }
 
+    /**
+     * Getter for the property 'entries'.
+     * @return value for the property 'entries'
+     */
     public List<Map<String, String>> getEntries() {
         return entries;
     }

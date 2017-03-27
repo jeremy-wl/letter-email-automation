@@ -98,8 +98,11 @@ public class TemplatePopulatorTest {
                 "   reach you within the next couple of days.\n" +
                 "\n" +
                 "   Sincerely, ";
+        Method method = tp.getClass().getDeclaredMethod("getFileContent", String.class);
+        method.setAccessible(true);
+
         TemplatePopulator.main(argsValid);
-        Assert.assertEquals(outContent, TemplatePopulator.getFileContent("io/out/output1"));
+        Assert.assertEquals(outContent, method.invoke(tp, "io/out/output1"));
     }
 
     @Test
@@ -120,8 +123,11 @@ public class TemplatePopulatorTest {
                 "    theater between March 1st and April 10th.\n" +
                 "\n" +
                 "Sincerely, ";
+        Method method = tp.getClass().getDeclaredMethod("getFileContent", String.class);
+        method.setAccessible(true);
+
         TemplatePopulator.main(argsValid);
-        Assert.assertEquals(outContent, TemplatePopulator.getFileContent("io/out/output1"));
+        Assert.assertEquals(outContent,  method.invoke(tp, "io/out/output1"));
     }
 
     @Test

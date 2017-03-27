@@ -46,7 +46,12 @@ class TemplatePopulator {
             "--csv-file customer.csv\n" +
             "\n";
 
-    public static String getFileContent(String fileName) {
+    /**
+     * Gets the file content from the given file.
+     * @param fileName the name of the file
+     * @return the content of the given file
+     */
+    private static String getFileContent(String fileName) {
         StringBuilder res = new StringBuilder();
         try (BufferedReader inputFile = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -64,6 +69,12 @@ class TemplatePopulator {
         return res.toString();
     }
 
+    /**
+     * Populate the template with the given template and the entry parsed from csv file.
+     * @param templateContent the content of the template
+     * @param map map of an entry parsed from csv file
+     * @return a string with the template populated with the given entry
+     */
     private static String populateTemplate(String templateContent, Map<String, String> map) {
         StringBuilder res = new StringBuilder(templateContent);
         for (String field : map.keySet()) {
@@ -76,6 +87,11 @@ class TemplatePopulator {
         return res.toString();
     }
 
+    /**
+     * Writes the content to the file specified.
+     * @param content the content of a file to be written
+     * @param dest the destination file
+     */
     private static void writeToFile(String content, String dest) {
         try (BufferedWriter outputFile = new BufferedWriter(new FileWriter(dest))) {
             outputFile.write(content);
@@ -88,6 +104,13 @@ class TemplatePopulator {
         }
     }
 
+    /**
+     * Populate the template with the given template and entries,
+     * and creates files corresponding to each entry.
+     * @param templateContent the content of the template
+     * @param entries a list of entries parsed from the csv
+     * @param outDir the output directory
+     */
     private static void populateAll(String templateContent, List<Map<String, String>> entries, String outDir) {
         int num = 1;
         for (Map<String, String> entry : entries) {
@@ -96,7 +119,29 @@ class TemplatePopulator {
         }
     }
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    /**
+     * Accepts certain arguments at the command line and populate different template to files
+     * given different options
+     *
+     *  --email                  only generate email messages
+     *  --email-template <file>  accepts a filename that holds the email template
+     *
+     *  --letter                 only generate letters
+     *  --letter-template <file> accepts a filename that holds the email template
+     *
+     *
+     *  --output-dir <path>      accepts the name of a folder, all output is placed in this folder
+     *  --csv-file <path>        accepts the name of the csv file to process
+     *
+     *  When an illegal combination of inputs is provided by the user
+     *  the program will exit with a helpful error message and a short explanation of
+     *  how to use the program along with examples.
+     *
+     * @param args the arguments passed at the command line
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public static void main(String[] args) throws IOException {
         boolean isArgsValid = true;
         Map<String, String> params = new HashMap<>();
         for (int i = 0; i < args.length; i++) {

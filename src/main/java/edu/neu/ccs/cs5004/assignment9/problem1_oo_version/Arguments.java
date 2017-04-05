@@ -51,6 +51,11 @@ public class Arguments {
       + "--csv-file customer.csv\n"
       + "\n";
 
+  /**
+   * Creates an Arguments object given an array of arguments.
+   * Any argument in the array must not be null.
+   * @param args
+   */
   public Arguments(String[] args) {
     Map<String, String> argsMap = collectArguments(args);
     if (!isArgsValid(argsMap)) {
@@ -120,5 +125,25 @@ public class Arguments {
 
   public String getTemplateFilePath() {
     return templateFilePath;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+
+    Arguments arguments = (Arguments) obj;
+
+    return getCsvFilePath().equals(arguments.getCsvFilePath())
+            && getOutputDir().equals(arguments.getOutputDir())
+            && getTemplateFilePath().equals(arguments.getTemplateFilePath());
+  }
+
+  @Override
+  public int hashCode() {
+    int result = getCsvFilePath().hashCode();
+    result = 31 * result + getOutputDir().hashCode();
+    result = 31 * result + getTemplateFilePath().hashCode();
+    return result;
   }
 }

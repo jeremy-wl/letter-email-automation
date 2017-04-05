@@ -15,6 +15,9 @@ public class CsvParser implements Parser<Text> {
   private List<String> fields;
   private List<Member> entries;
 
+  /**
+   * Creates a csv parser with empty fields.
+   */
   public CsvParser() {
     this.fields = new ArrayList<>();
     this.entries = new ArrayList<>();
@@ -56,5 +59,22 @@ public class CsvParser implements Parser<Text> {
       res.add(match.substring(1, match.length() - 1));
     }
     return res;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    CsvParser csvParser = (CsvParser) o;
+
+    return fields.equals(csvParser.fields) && entries.equals(csvParser.entries);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = fields.hashCode();
+    result = 31 * result + entries.hashCode();
+    return result;
   }
 }

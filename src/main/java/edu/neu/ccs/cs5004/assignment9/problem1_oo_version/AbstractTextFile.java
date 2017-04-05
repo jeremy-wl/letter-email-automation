@@ -14,6 +14,7 @@ abstract class AbstractTextFile extends File<Text> {
    *
    * @param filePath the name of the file
    * @throws FileNotFoundException the exception that gets thrown when a file
+   *                               with the specified pathname does not exist
    */
   protected AbstractTextFile(String filePath) throws FileNotFoundException {
     super(filePath);
@@ -28,6 +29,7 @@ abstract class AbstractTextFile extends File<Text> {
    * @param filePath the name of the file
    * @param content  the content of the file
    * @throws FileNotFoundException the exception that gets thrown when a file
+   *                               with the specified pathname does not exist
    */
   protected AbstractTextFile(String filePath, Text content) throws FileNotFoundException {
     super(filePath);
@@ -63,7 +65,7 @@ abstract class AbstractTextFile extends File<Text> {
   protected void writeContent() {
     try (BufferedWriter outputFile = new BufferedWriter(new OutputStreamWriter(
             new FileOutputStream(filePath), "UTF-8"))) {
-      outputFile.write(content.getContent());
+      outputFile.write(content.getText());
     } catch (IOException ioe) {
       System.out.println("Something went wrong! : " + ioe.getMessage());
     }

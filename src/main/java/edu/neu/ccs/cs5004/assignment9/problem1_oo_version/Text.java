@@ -4,25 +4,25 @@ package edu.neu.ccs.cs5004.assignment9.problem1_oo_version;
  * Created by Jeremy on 4/2/17.
  */
 class Text {
-  private String content;
+  private String text;
 
   /**
-   * Creates a content with its content.
-   * The content to be passed in must not be null.
+   * Creates a text with its text.
+   * The text to be passed in must not be null.
    *
-   * @param content the content of the content
+   * @param text the text of the text
    */
-  public Text(String content) {
-    this.content = content;
+  public Text(String text) {
+    this.text = text;
   }
 
   /**
-   * Getter for property 'content'.
+   * Getter for property 'text'.
    *
-   * @return Value for property 'content'
+   * @return Value for property 'text'
    */
-  public String getContent() {
-    return content;
+  public String getText() {
+    return text;
   }
 
   @Override
@@ -36,11 +36,11 @@ class Text {
 
     Text text = (Text) obj;
 
-    return getContent().equals(text.getContent());
+    return getText().equals(text.getText());
   }
 
   @Override
   public int hashCode() {
-    return getContent().hashCode();
+    return getText().hashCode();
   }
 }

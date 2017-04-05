@@ -15,4 +15,8 @@ class Member {
     for (int i = 0; i < fields.size(); i++)
       this.info.put(fields.get(i), values.get(i));
   }
+
+  public Map<String, String> getInfo() {
+    return info;
+  }
 }

@@ -22,5 +22,6 @@ public class Main {
     File<Text> csvFile = new CsvFile(csvFilePath);
     Parser<Text> csvParser = new CsvParser();
     List<Member> memberList = csvParser.extractInfo(csvFile);
+    new TemplatePopulator().populate(memberList, new PlainTextFile(templateFilePath), outputDir);
   }
 }

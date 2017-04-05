@@ -24,7 +24,7 @@ public class CsvParser implements Parser<Text> {
   public List<Member> extractInfo(File<Text> inputFile) {
     Text fileContent = inputFile.readContent();
     try (BufferedReader bufferedReader = new BufferedReader(new StringReader(fileContent
-        .getContent()))) {
+        .getText()))) {
       String line;
 
       while ((line = bufferedReader.readLine()) != null) {

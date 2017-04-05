@@ -20,15 +20,23 @@ public class Main {
    */
   public static void main(String[] args) throws FileNotFoundException {
 
+    // Collecting arguments from command line
     Arguments arguments = new Arguments(args);
     String csvFilePath = arguments.getCsvFilePath();
     String outputDir = arguments.getOutputDir();
     String templateFilePath = arguments.getTemplateFilePath();
 
+    // extracting member list from csv file
     File<Text> csvFile = new CsvFile(csvFilePath);
     Parser<Text> csvParser = new CsvParser();
     List<Member> memberList = csvParser.extractInfo(csvFile);
+
+    // populate member info to files
     TemplatePopulator populator = new TemplatePopulator();
-    populator.populate(memberList, new PlainTextFile(templateFilePath), outputDir);
+    List<File> files = populator.populate(memberList, new PlainTextFile(templateFilePath),
+                                             outputDir);
+    for (File file : files) {
+      file.writeContent();
+    }
   }
 }

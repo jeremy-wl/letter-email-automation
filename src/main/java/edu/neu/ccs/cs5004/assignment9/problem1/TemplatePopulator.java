@@ -1,6 +1,7 @@
 package edu.neu.ccs.cs5004.assignment9.problem1;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class TemplatePopulator {
    * @throws FileNotFoundException the exception that gets thrown when a file
    *                               with the specified file path does not exist
    */
-  private File generateFile(Member member, File<Text> templateFile, String filePath)
+  private File populate(Member member, File<Text> templateFile, String filePath)
           throws FileNotFoundException {
     Map<String, String> memberInfo = member.getInfo();
     StringBuilder populatedText = new StringBuilder(templateFile.getContent().getText());
@@ -44,16 +45,19 @@ public class TemplatePopulator {
    * @param memberList a list of member info
    * @param templateFile a template file
    * @param filePath the output file path
+   * @return a list of files with its content populated with the given member info
    * @throws FileNotFoundException the exception that gets thrown when a file
    *                               with the specified file path does not exist
    */
-  public void populate(List<Member> memberList, File<Text> templateFile, String filePath)
+  public List<File> populate(List<Member> memberList, File<Text> templateFile, String filePath)
          throws FileNotFoundException {
+    List<File> files = new ArrayList<>();
     for (int i = 0; i < memberList.size(); i++) {
       int fileNumbering = i + 1;
-      File generatedFile = generateFile(memberList.get(i), templateFile,
+      File generatedFile = populate(memberList.get(i), templateFile,
                                         filePath + "/generated" + fileNumbering + ".txt");
-      generatedFile.writeContent();
+      files.add(generatedFile);
     }
+    return files;
   }
 }

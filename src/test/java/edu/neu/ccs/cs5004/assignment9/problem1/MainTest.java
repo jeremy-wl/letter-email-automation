@@ -13,8 +13,6 @@ public class MainTest {
 
   String[] args_valid1;
   String[] args_valid2;
-  String[] args1;
-  String[] args2;
 
   File<Text> csvFileOutput1;
   File<Text> csvFileOutput2;
@@ -29,9 +27,9 @@ public class MainTest {
   @Before
   public void setUp() throws Exception {
     args_valid1 = new String[] {"--letter", "--letter-template", IO_DIR + "/in/template_letter.txt",
-            "--output-dir", IO_DIR + "/out", "--csv-file", IO_DIR + "/in/theater-company-members.csv"};
+         "--output-dir", IO_DIR + "/out", "--csv-file", IO_DIR + "/in/theater-company-members.csv"};
     args_valid2 = new String[] {"--email", "--email-template", IO_DIR + "/in/template_email.txt",
-            "--output-dir", IO_DIR + "/out", "--csv-file", IO_DIR + "/in/theater-company-members.csv"};
+         "--output-dir", IO_DIR + "/out", "--csv-file", IO_DIR + "/in/theater-company-members.csv"};
     expectedOutput1 = new PlainTextFile(IO_DIR + "/out/expected/expected1.txt").getContent();
     expectedOutput2 = new PlainTextFile(IO_DIR + "/out/expected/expected2.txt").getContent();
     expectedOutput3 = new PlainTextFile(IO_DIR + "/out/expected/expected3.txt").getContent();
@@ -60,7 +58,3 @@ public class MainTest {
     Assert.assertEquals(expectedOutput4, csvFileOutput4.getContent());
   }
 }
-//  @Test(expected = IllegalArgumentException.class)
-//  public void testMain_WrongNumberOfArguments() throws Exception {
-//    Main.main(new String[]{"", ""});
-//  }}

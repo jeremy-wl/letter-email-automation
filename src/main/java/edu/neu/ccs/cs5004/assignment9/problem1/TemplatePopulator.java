@@ -19,7 +19,7 @@ public class TemplatePopulator {
    * @param filePath the output file path
    * @return a new file with its content populated with the given member info
    * @throws FileNotFoundException the exception that gets thrown when a file
-   *                               with the specified pathname does not exist
+   *                               with the specified file path does not exist
    */
   private File generateFile(Member member, File<Text> templateFile, String filePath)
           throws FileNotFoundException {
@@ -45,7 +45,7 @@ public class TemplatePopulator {
    * @param templateFile a template file
    * @param filePath the output file path
    * @throws FileNotFoundException the exception that gets thrown when a file
-   *                               with the specified pathname does not exist
+   *                               with the specified file path does not exist
    */
   public void populate(List<Member> memberList, File<Text> templateFile, String filePath)
          throws FileNotFoundException {

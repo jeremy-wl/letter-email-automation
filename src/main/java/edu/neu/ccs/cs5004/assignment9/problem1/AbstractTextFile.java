@@ -21,7 +21,7 @@ abstract class AbstractTextFile extends File<Text> {
    *
    * @param filePath the name of the file
    * @throws FileNotFoundException the exception that gets thrown when a file
-   *                               with the specified pathname does not exist
+   *                               with the specified file path does not exist
    */
   protected AbstractTextFile(String filePath) throws FileNotFoundException {
     super(filePath);
@@ -36,7 +36,7 @@ abstract class AbstractTextFile extends File<Text> {
    * @param filePath the name of the file
    * @param content  the content of the file
    * @throws FileNotFoundException the exception that gets thrown when a file
-   *                               with the specified pathname does not exist
+   *                               with the specified file path does not exist
    */
   protected AbstractTextFile(String filePath, Text content) throws FileNotFoundException {
     super(filePath);

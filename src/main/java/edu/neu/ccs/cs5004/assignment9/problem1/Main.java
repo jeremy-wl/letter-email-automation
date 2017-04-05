@@ -16,7 +16,7 @@ public class Main {
    * @param args a list of arguments from the command line input
    *
    * @throws FileNotFoundException the exception that gets thrown when a file
-   *                               with the specified pathname does not exist
+   *                               with the specified file path does not exist
    */
   public static void main(String[] args) throws FileNotFoundException {
 

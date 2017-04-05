@@ -12,7 +12,7 @@ class PlainTextFile extends AbstractTextFile {
    *
    * @param filePath the path of the file
    * @throws FileNotFoundException the exception that gets thrown when a file
-   *                               with the specified pathname does not exist
+   *                               with the specified file path does not exist
    */
   public PlainTextFile(String filePath) throws FileNotFoundException {
     super(filePath);
@@ -26,7 +26,7 @@ class PlainTextFile extends AbstractTextFile {
    * @param filePath the path of the file
    * @param content  the content of the file
    * @throws FileNotFoundException the exception that gets thrown when a file
-   *                               with the specified pathname does not exist
+   *                               with the specified file path does not exist
    */
   public PlainTextFile(String filePath, Text content) throws FileNotFoundException {
     super(filePath, content);

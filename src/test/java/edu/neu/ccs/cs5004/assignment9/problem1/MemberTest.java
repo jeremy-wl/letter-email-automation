@@ -1,4 +1,4 @@
-package edu.neu.ccs.cs5004.assignment9.problem1_oo_version;
+package edu.neu.ccs.cs5004.assignment9.problem1;
 
 import edu.neu.ccs.cs5004.assignment9.problem1.testutils.TestUtils;
 import org.junit.Assert;
@@ -7,8 +7,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Jeremy on 4/4/17.

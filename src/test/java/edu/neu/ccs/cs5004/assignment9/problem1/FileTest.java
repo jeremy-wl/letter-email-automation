@@ -1,4 +1,4 @@
-package edu.neu.ccs.cs5004.assignment9.problem1_oo_version;
+package edu.neu.ccs.cs5004.assignment9.problem1;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -11,9 +11,9 @@ import java.io.PrintStream;
 /**
  * Created by Jeremy on 4/4/17.
  */
-public class FileTest extends edu.neu.ccs.cs5004.assignment9.problem1_oo_version.testutils.TestUtils {
+public class FileTest extends edu.neu.ccs.cs5004.assignment9.problem1.testutils.TestUtils {
   private static final String IO_DIR = System.getProperty("user.dir") +
-          "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1_oo_version/io/";
+          "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1/io/";
   private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
   private File<Text> file_dup1;
   private File<Text> file_dup2;

@@ -1,21 +1,16 @@
-package edu.neu.ccs.cs5004.assignment9.problem1_oo_version;
+package edu.neu.ccs.cs5004.assignment9.problem1;
 
 import edu.neu.ccs.cs5004.assignment9.problem1.testutils.TestUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
-
 /**
  * Created by Jeremy on 4/4/17.
  */
 public class CsvParserTest extends TestUtils {
   private static final String IO_DIR = System.getProperty("user.dir") +
-          "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1_oo_version/io/";
+          "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1/io/";
 
   private CsvParser cp_dup1;
   private CsvParser cp_dup2;

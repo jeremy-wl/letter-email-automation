@@ -1,4 +1,4 @@
-package edu.neu.ccs.cs5004.assignment9.problem1_oo_version;
+package edu.neu.ccs.cs5004.assignment9.problem1;
 
 import edu.neu.ccs.cs5004.assignment9.problem1.testutils.TestUtils;
 import org.junit.Assert;
@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class ArgumentsTest extends TestUtils {
   private static final String IO_DIR = System.getProperty("user.dir") +
-          "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1_oo_version/io";
+          "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1/io";
 
   private Arguments args_dup1;
   private Arguments args_dup2;

@@ -1,6 +1,6 @@
-package edu.neu.ccs.cs5004.assignment9.problem1_oo_version;
+package edu.neu.ccs.cs5004.assignment9.problem1;
 
-import edu.neu.ccs.cs5004.assignment9.problem1_oo_version.testutils.TestUtils;
+import edu.neu.ccs.cs5004.assignment9.problem1.testutils.TestUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

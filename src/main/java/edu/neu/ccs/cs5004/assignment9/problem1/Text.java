@@ -1,4 +1,4 @@
-package edu.neu.ccs.cs5004.assignment9.problem1_oo_version;
+package edu.neu.ccs.cs5004.assignment9.problem1;
 
 /**
  * Created by Jeremy on 4/2/17.

@@ -1,4 +1,4 @@
-package edu.neu.ccs.cs5004.assignment9.problem1_oo_version;
+package edu.neu.ccs.cs5004.assignment9.problem1;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Main {
   private static final String IO_DIR = System.getProperty("user.dir") +
-      "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1_oo_version/io";
+      "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1/io";
 
   public static void main(String[] args) throws FileNotFoundException {
 

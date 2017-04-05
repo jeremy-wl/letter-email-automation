@@ -1,17 +1,15 @@
-package edu.neu.ccs.cs5004.assignment9.problem1_oo_version;
+package edu.neu.ccs.cs5004.assignment9.problem1;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Jeremy on 4/4/17.
  */
 public class MainTest {
   private static final String IO_DIR = System.getProperty("user.dir") +
-          "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1_oo_version/io/";
+          "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1/io/";
 
   String[] args_valid1;
   String[] args_valid2;

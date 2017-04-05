@@ -12,9 +12,7 @@ public class Main {
 
   public static void main(String[] args) throws FileNotFoundException {
 
-    String[] argsTest = {"--letter", "--letter-template", IO_DIR + "/in/template_letter.txt",
-           "--output-dir", IO_DIR + "/out", "--csv-file", IO_DIR + "/in/theater-company-members.csv"};
-    Arguments arguments = new Arguments(argsTest);
+    Arguments arguments = new Arguments(args);
     String csvFilePath = arguments.getCsvFilePath();
     String outputDir = arguments.getOutputDir();
     String templateFilePath = arguments.getTemplateFilePath();

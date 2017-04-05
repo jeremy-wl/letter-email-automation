@@ -16,19 +16,23 @@ public class CsvParserTest extends TestUtils {
   private CsvParser cp_dup2;
   private CsvParser cp_dup3;
   private CsvParser cp_diff;
+  private CsvParser csvParser;
 
   private File<Text> csvFile1;
   private File<Text> csvFile2;
+  private File<Text> csvFile_invalid1;
 
   @Before
   public void setUp() throws Exception {
     csvFile1 = new CsvFile(IO_DIR + "/in/theater-company-members.csv");
     csvFile2 = new CsvFile(IO_DIR + "/in/diff_csv.csv");
+    csvFile_invalid1 = new CsvFile(IO_DIR + "/in/invalid1.csv");
 
     cp_dup1 = new CsvParser();
     cp_dup2 = new CsvParser();
     cp_dup3 = new CsvParser();
     cp_diff = new CsvParser();
+    csvParser = new CsvParser();
 
     cp_dup1.extractInfo(csvFile1);
     cp_dup2.extractInfo(csvFile1);
@@ -36,8 +40,9 @@ public class CsvParserTest extends TestUtils {
     cp_diff.extractInfo(csvFile2);
   }
 
-  @Test
-  public void extractInfo() throws Exception {
+  @Test(expected = InvalidCsvException.class)
+  public void testExtractInfoWithInvalidCSV1() throws Exception {
+    csvParser.extractInfo(csvFile_invalid1);
   }
 
   @Test

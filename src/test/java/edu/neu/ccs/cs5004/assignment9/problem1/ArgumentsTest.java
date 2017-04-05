@@ -16,6 +16,7 @@ public class ArgumentsTest extends TestUtils {
   private Arguments args_dup2;
   private Arguments args_dup3;
   private Arguments args_diff;
+  private Arguments args;
 
   @Before
   public void setUp() throws Exception {
@@ -37,6 +38,29 @@ public class ArgumentsTest extends TestUtils {
     });
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidValidArguments1() throws Exception {
+    args = new Arguments(new String[] {""});
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidValidArguments2() throws Exception {
+    args_dup1 = new Arguments(new String[] {"", "", "", "", "", "", "", "", "", ""});
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidValidLetterArguments() throws Exception {
+    args_dup1 = new Arguments(new String[]{
+            "--letter", "--email-template", IO_DIR + "/in/template_letter.txt",
+            "--output-dir", IO_DIR + "/out", "--csv-file", IO_DIR + "/in/theater-company-members.csv"});
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidValidEmailArguments() throws Exception {
+    args_dup1 = new Arguments(new String[]{
+            "--email", "--letter-template", IO_DIR + "/in/template_email.txt",
+            "--output-dir", IO_DIR + "/out", "--csv-file", IO_DIR + "/in/theater-company-members.csv"});
+  }
 
   @Test
   public void testEquals() throws Exception {

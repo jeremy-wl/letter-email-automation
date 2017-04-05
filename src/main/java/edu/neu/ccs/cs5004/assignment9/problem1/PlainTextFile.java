@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
  */
 class PlainTextFile extends AbstractTextFile {
   /**
-   * Creates a template file given the file path.
+   * Creates a plain text file given the file path.
    * The file path given must be valid in the filesystem and not null.
    *
    * @param filePath the path of the file
@@ -19,7 +19,7 @@ class PlainTextFile extends AbstractTextFile {
   }
 
   /**
-   * Creates a template file given the file path.
+   * Creates a plain text file given the file path.
    * The file path given must be valid in the filesystem and not null.
    * The content also should not be null.
    *

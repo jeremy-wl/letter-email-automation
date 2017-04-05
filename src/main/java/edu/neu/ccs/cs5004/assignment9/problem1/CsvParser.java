@@ -47,6 +47,11 @@ public class CsvParser implements Parser<Text> {
     return this.entries;
   }
 
+  /**
+   * Given a line from the csv file, returns a list of column values from this line.
+   * @param line a line from the csv file
+   * @return a list of column values from this line
+   */
   private List<String> parseLine(String line) {
     if (line.trim().equals(""))  return null;  // using null to denote an empty line
 

@@ -22,6 +22,11 @@ class Member {
       this.info.put(fields.get(i), values.get(i));
   }
 
+  /**
+   * Getter for property 'info'.
+   *
+   * @return Value for property 'info'
+   */
   public Map<String, String> getInfo() {
     return info;
   }

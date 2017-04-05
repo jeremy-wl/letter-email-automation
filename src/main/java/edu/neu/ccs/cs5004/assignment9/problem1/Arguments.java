@@ -54,7 +54,7 @@ public class Arguments {
   /**
    * Creates an Arguments object given an array of arguments.
    * Any argument in the array must not be null.
-   * @param args
+   * @param args an array of arguments passed from the command line
    */
   public Arguments(String[] args) {
     Map<String, String> argsMap = collectArguments(args);
@@ -67,6 +67,13 @@ public class Arguments {
                                                              : argsMap.get(OPT_LETTER_TEMP);
   }
 
+  /**
+   * Collects all the arguments from the command line input and convert
+   * the array of Strings to the corresponding map.
+   *
+   * @param args a list of arguments passed into the command line
+   * @return the corresponding map of the list of Strings
+   */
   private Map<String, String> collectArguments(String[] args) {
     Map<String, String> argsMap = new HashMap<>();
     for (int i = 0; i < args.length; i++) {
@@ -96,6 +103,12 @@ public class Arguments {
     return argsMap;
   }
 
+  /**
+   * Given a map of arguments we get from the command line input,
+   * returns true if the arguments combination is valid, false otherwise.
+   * @param argsMap the map of arguments
+   * @return true if the arguments combination is valid, false otherwise
+   */
   private boolean isArgsValid(Map<String, String> argsMap) {
     boolean isArgsValid = true;
     if (!argsMap.containsKey(OPT_OUTDIR) || !argsMap.containsKey(OPT_CSV)
@@ -115,15 +128,30 @@ public class Arguments {
     return isArgsValid;
   }
 
+  /**
+   * Getter for property 'csvFilePath'.
+   *
+   * @return Value for property 'csvFilePath'
+   */
   public String getCsvFilePath() {
     return csvFilePath;
   }
 
-  public String getOutputDir() {
+  /**
+   * Getter for property 'outputDir'.
+   *
+   * @return Value for property 'outputDir'
+   */
+public String getOutputDir() {
     return outputDir;
   }
 
-  public String getTemplateFilePath() {
+  /**
+   * Getter for property 'templateFilePath'.
+   *
+   * @return Value for property 'templateFilePath'
+   */
+public String getTemplateFilePath() {
     return templateFilePath;
   }
 

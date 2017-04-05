@@ -11,6 +11,16 @@ public class TemplatePopulator {
   private static final int PLACEHOLDER_LEFT_OFFSET  = 2;
   private static final int PLACEHOLDER_RIGHT_OFFSET = 2;
 
+  /**
+   * Given a member info, a template file and the output file path,
+   * returns a new file with its content populated with the given member info
+   * @param member a member info
+   * @param templateFile a template file
+   * @param filePath the output file path
+   * @return a new file with its content populated with the given member info
+   * @throws FileNotFoundException the exception that gets thrown when a file
+   *                               with the specified pathname does not exist
+   */
   private File generateFile(Member member, File<Text> templateFile, String filePath)
           throws FileNotFoundException {
     Map<String, String> memberInfo = member.getInfo();
@@ -28,6 +38,15 @@ public class TemplatePopulator {
     return new PlainTextFile(filePath, new Text(populatedText.toString()));
   }
 
+  /**
+   * Given a list of member info, a template file and the output file path,
+   * returns a new file with its content populated with the given member info
+   * @param memberList a list of member info
+   * @param templateFile a template file
+   * @param filePath the output file path
+   * @throws FileNotFoundException the exception that gets thrown when a file
+   *                               with the specified pathname does not exist
+   */
   public void populate(List<Member> memberList, File<Text> templateFile, String filePath)
          throws FileNotFoundException {
     for (int i = 0; i < memberList.size(); i++) {

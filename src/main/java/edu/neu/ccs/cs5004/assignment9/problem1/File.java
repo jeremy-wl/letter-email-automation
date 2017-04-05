@@ -49,7 +49,7 @@ abstract class File<T> {
   protected abstract T readContent();
 
   /**
-   * Write the file to the disk with its file path and its content.
+   * Writes the file to the disk with its file path and its content.
    */
   protected abstract void writeContent();
 

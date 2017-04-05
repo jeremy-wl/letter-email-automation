@@ -7,9 +7,17 @@ import java.util.List;
  * Created by Jeremy on 4/4/17.
  */
 public class Main {
-  private static final String IO_DIR = System.getProperty("user.dir") +
-      "/src/test/java/edu/neu/ccs/cs5004/assignment9/problem1/io";
-
+  /**
+   * Given a list of arguments from the command line input,
+   * extracts all entries from the csv file specified,
+   * populates them to the template specified,
+   * and write the generated files to the filesystem.
+   *
+   * @param args a list of arguments from the command line input
+   *
+   * @throws FileNotFoundException the exception that gets thrown when a file
+   *                               with the specified pathname does not exist
+   */
   public static void main(String[] args) throws FileNotFoundException {
 
     Arguments arguments = new Arguments(args);
@@ -20,6 +28,7 @@ public class Main {
     File<Text> csvFile = new CsvFile(csvFilePath);
     Parser<Text> csvParser = new CsvParser();
     List<Member> memberList = csvParser.extractInfo(csvFile);
-    new TemplatePopulator().populate(memberList, new PlainTextFile(templateFilePath), outputDir);
+    TemplatePopulator populator = new TemplatePopulator();
+    populator.populate(memberList, new PlainTextFile(templateFilePath), outputDir);
   }
 }

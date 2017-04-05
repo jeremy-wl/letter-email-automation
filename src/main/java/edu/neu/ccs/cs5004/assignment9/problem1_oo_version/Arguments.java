@@ -109,4 +109,16 @@ public class Arguments {
     }
     return isArgsValid;
   }
+
+  public String getCsvFilePath() {
+    return csvFilePath;
+  }
+
+  public String getOutputDir() {
+    return outputDir;
+  }
+
+  public String getTemplateFilePath() {
+    return templateFilePath;
+  }
 }

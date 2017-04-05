@@ -32,11 +32,13 @@ public class CsvParser implements Parser<Text> {
 
       while ((line = bufferedReader.readLine()) != null) {
         List<String> parsedLine = parseLine(line);
-        if (this.fields.isEmpty())  this.fields = parsedLine;
-        else if (parsedLine == null)  continue;
-        else if (parsedLine.size() != this.fields.size())
+        if (this.fields.isEmpty())  {
+          this.fields = parsedLine;
+        } else if (parsedLine == null)  {
+          continue;
+        } else if (parsedLine.size() != this.fields.size()) {
           throw new InvalidCsvException("The input csv format is invalid.");
-        else {
+        } else {
           this.entries.add(new Member(this.fields, parsedLine));
         }
       }
@@ -53,7 +55,9 @@ public class CsvParser implements Parser<Text> {
    * @return a list of column values from this line
    */
   private List<String> parseLine(String line) {
-    if (line.trim().equals(""))  return null;  // using null to denote an empty line
+    if (line.trim().equals(""))  {
+      return null;  // using null to denote an empty line
+    }
 
     List<String> res = new ArrayList<>();
     Pattern regex = Pattern.compile("\"(.*?)\"|,([^\"]+?),");
@@ -67,11 +71,15 @@ public class CsvParser implements Parser<Text> {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
 
-    CsvParser csvParser = (CsvParser) o;
+    CsvParser csvParser = (CsvParser) obj;
 
     return fields.equals(csvParser.fields) && entries.equals(csvParser.entries);
   }

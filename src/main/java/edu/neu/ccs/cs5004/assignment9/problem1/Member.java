@@ -18,8 +18,9 @@ class Member {
    */
   public Member(List<String> fields, List<String> values) {
     this.info = new HashMap<>();
-    for (int i = 0; i < fields.size(); i++)
+    for (int i = 0; i < fields.size(); i++) {
       this.info.put(fields.get(i), values.get(i));
+    }
   }
 
   /**
@@ -32,11 +33,15 @@ class Member {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
 
-    Member member = (Member) o;
+    Member member = (Member) obj;
 
     return getInfo().equals(member.getInfo());
   }

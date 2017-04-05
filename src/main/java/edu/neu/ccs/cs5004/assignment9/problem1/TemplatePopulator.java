@@ -13,7 +13,7 @@ public class TemplatePopulator {
 
   /**
    * Given a member info, a template file and the output file path,
-   * returns a new file with its content populated with the given member info
+   * returns a new file with its content populated with the given member info.
    * @param member a member info
    * @param templateFile a template file
    * @param filePath the output file path
@@ -40,7 +40,7 @@ public class TemplatePopulator {
 
   /**
    * Given a list of member info, a template file and the output file path,
-   * returns a new file with its content populated with the given member info
+   * returns a new file with its content populated with the given member info.
    * @param memberList a list of member info
    * @param templateFile a template file
    * @param filePath the output file path

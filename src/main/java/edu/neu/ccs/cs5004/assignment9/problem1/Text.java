@@ -4,25 +4,25 @@ package edu.neu.ccs.cs5004.assignment9.problem1;
  * Created by Jeremy on 4/2/17.
  */
 class Text {
-  private String text;
+  private String txt;
 
   /**
-   * Creates a text with its text.
+   * Creates a text object with its content.
    * The text to be passed in must not be null.
    *
-   * @param text the text of the text
+   * @param txt the content of the text
    */
-  public Text(String text) {
-    this.text = text;
+  public Text(String txt) {
+    this.txt = txt;
   }
 
   /**
-   * Getter for property 'text'.
+   * Getter for property 'txt'.
    *
-   * @return Value for property 'text'
+   * @return Value for property 'txt'
    */
   public String getText() {
-    return text;
+    return txt;
   }
 
   @Override

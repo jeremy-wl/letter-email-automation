@@ -59,11 +59,12 @@ public class Arguments {
   public Arguments(String[] args) {
     Map<String, String> argsMap = collectArguments(args);
     if (!isArgsValid(argsMap)) {
-      throw new IllegalArgumentException("Argument not valid, check previous output message for details.");
+      throw new IllegalArgumentException(
+              "Argument not valid, check previous output message for details.");
     }
-      this.csvFilePath = argsMap.get(OPT_CSV);
-      this.outputDir = argsMap.get(OPT_OUTDIR);
-      this.templateFilePath = argsMap.containsKey(OPT_EMAIL) ? argsMap.get(OPT_EMAIL_TEMP)
+    this.csvFilePath = argsMap.get(OPT_CSV);
+    this.outputDir = argsMap.get(OPT_OUTDIR);
+    this.templateFilePath = argsMap.containsKey(OPT_EMAIL) ? argsMap.get(OPT_EMAIL_TEMP)
                                                              : argsMap.get(OPT_LETTER_TEMP);
   }
 
@@ -142,7 +143,7 @@ public class Arguments {
    *
    * @return Value for property 'outputDir'
    */
-public String getOutputDir() {
+  public String getOutputDir() {
     return outputDir;
   }
 
@@ -151,14 +152,18 @@ public String getOutputDir() {
    *
    * @return Value for property 'templateFilePath'
    */
-public String getTemplateFilePath() {
+  public String getTemplateFilePath() {
     return templateFilePath;
   }
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null || getClass() != obj.getClass()) return false;
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
 
     Arguments arguments = (Arguments) obj;
 

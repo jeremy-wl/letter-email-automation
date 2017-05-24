@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by Jeremy on 4/4/17.
  */
-class Member {
+class Member {  // Represents a member/an entry in the CSV file
   private Map<String, String> info;
 
   /**

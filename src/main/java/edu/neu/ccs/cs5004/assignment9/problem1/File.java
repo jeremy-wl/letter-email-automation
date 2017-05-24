@@ -5,7 +5,7 @@ package edu.neu.ccs.cs5004.assignment9.problem1;
  */
 
 /**
- * Represent a file.
+ * Represents a file.
  *
  * @param <T> the type of the file.
  */

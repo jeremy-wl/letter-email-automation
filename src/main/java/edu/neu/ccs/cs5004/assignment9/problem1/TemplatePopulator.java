@@ -28,8 +28,8 @@ public class TemplatePopulator {
     StringBuilder populatedText = new StringBuilder(templateFile.getContent().getText());
 
     for (String field : memberInfo.keySet()) {
-      int index = populatedText.indexOf(field);
-      while (index != -1) {
+      int index = populatedText.indexOf(field);  // checking the presence of field in text
+      while (index != -1) {                      // being populated
         populatedText.replace(index - PLACEHOLDER_LEFT_OFFSET,
                               index + field.length() + PLACEHOLDER_RIGHT_OFFSET,
                               memberInfo.get(field));

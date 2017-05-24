@@ -65,7 +65,7 @@ public class Arguments {
     this.csvFilePath = argsMap.get(OPT_CSV);
     this.outputDir = argsMap.get(OPT_OUTDIR);
     this.templateFilePath = argsMap.containsKey(OPT_EMAIL) ? argsMap.get(OPT_EMAIL_TEMP)
-                                                             : argsMap.get(OPT_LETTER_TEMP);
+                                                           : argsMap.get(OPT_LETTER_TEMP);
   }
 
   /**

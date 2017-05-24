@@ -16,10 +16,10 @@ import java.io.OutputStreamWriter;
 abstract class AbstractTextFile extends File<Text> {
 
   /**
-   * Creates a text file given the file name.
-   * The file name given must be valid in the filesystem and not null.
+   * Creates a text file given the file path.
+   * The file path given must be valid in the filesystem and not null.
    *
-   * @param filePath the name of the file
+   * @param filePath the path of the file
    * @throws FileNotFoundException the exception that gets thrown when a file
    *                               with the specified file path does not exist
    */
@@ -29,11 +29,11 @@ abstract class AbstractTextFile extends File<Text> {
   }
 
   /**
-   * Creates a text file given the file name.
-   * The file name given must be valid in the filesystem and not null.
+   * Creates a text file given the file path.
+   * The file path given must be valid in the filesystem and not null.
    * The content also should not be null.
    *
-   * @param filePath the name of the file
+   * @param filePath the path of the file
    * @param content  the content of the file
    * @throws FileNotFoundException the exception that gets thrown when a file
    *                               with the specified file path does not exist
